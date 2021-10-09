@@ -1,3 +1,4 @@
 import 'package:flutter/material.dart';
 
-const red = Color(0xffD72626);
+const gradientPurple = Color(0xFFD14E93);
+const gradientPink = Color(0xFFF95767);
