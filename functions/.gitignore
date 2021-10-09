@@ -1,0 +1,4 @@
+node_modules/
+
+# Configuration variables and secrets
+config.json
