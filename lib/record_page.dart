@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noteiteasy/globals.dart' as globals;
+import 'package:noteiteasy/record_button.dart';
 
 class RecordPage extends StatelessWidget {
   const RecordPage({Key? key}) : super(key: key);
@@ -21,6 +22,21 @@ class RecordPage extends StatelessWidget {
                             const TextStyle(color: globals.red, fontSize: 40))),
               ],
             ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: RecordButton(),
+                  ),
+                ],
+              ),
+            ],
           )
         ],
       )),
