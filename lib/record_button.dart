@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noteiteasy/sound_recorder.dart';
@@ -8,22 +7,20 @@ class RecordButton extends StatefulWidget {
 
   @override
   State<RecordButton> createState() => _RecordButtonState();
-
 }
 
 class _RecordButtonState extends State<RecordButton> {
-
   final recorder = SoundRecorder();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     recorder.init();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     recorder.dispose();
 
     super.dispose();
@@ -36,11 +33,10 @@ class _RecordButtonState extends State<RecordButton> {
     final text = isRecording ? 'STOP' : 'RECORD';
 
     return OutlinedButton(
-
-        onPressed:() async {
+        onPressed: () async {
           final isRecording = await recorder.toggleRecording();
           setState(() {});
-
-        }, child: const Text("Record"));
+        },
+        child: const Text("Record"));
   }
 }
