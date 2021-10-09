@@ -9,18 +9,26 @@ class RecordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Stack(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            child: Column(
-              children: [
-                Text("Note it easy!",
-                    style: GoogleFonts.loveYaLikeASister(
-                        textStyle:
-                            const TextStyle(color: globals.red, fontSize: 40))),
-              ],
+          Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [globals.gradientPurple, globals.gradientPink]),
+              )),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              child: Column(
+                children: [
+                  Text("Note it easy!",
+                      style: GoogleFonts.loveYaLikeASister(
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 40))),
+                ],
+              ),
             ),
           ),
           Column(
@@ -39,7 +47,7 @@ class RecordPage extends StatelessWidget {
             ],
           )
         ],
-      )),
+      ),
     );
   }
 }
