@@ -39,8 +39,8 @@ class RecordPage extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
-                  const Expanded(child: MemoList())
-                ],
+                  Expanded(child: MemoList())
+                ]
               ),
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-final pathToSaveAudio = 'audio_date.aac';
+final pathToSaveAudio = '/sdcard/audio_date.aac';
 
 class SoundRecorder {
   FlutterSoundRecorder? _audioRecorder;
