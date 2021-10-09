@@ -6,14 +6,14 @@ import 'package:noteiteasy/sound_recorder.dart';
 class RecordButton extends StatefulWidget {
   RecordButton({Key? key}) : super(key: key);
 
-  final recorder = SoundRecorder();
-
   @override
   State<RecordButton> createState() => _RecordButtonState();
 
 }
 
 class _RecordButtonState extends State<RecordButton> {
+
+  final recorder = SoundRecorder();
 
   @override
   void initState(){
@@ -37,8 +37,9 @@ class _RecordButtonState extends State<RecordButton> {
 
     return OutlinedButton(
 
-        onPressed:() {
+        onPressed:() async {
           final isRecording = await recorder.toggleRecording();
+          setState(() {});
 
         }, child: const Text("Record"));
   }

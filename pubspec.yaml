@@ -32,7 +32,7 @@ dependencies:
   path_provider: ^2.0.2
   share_plus:
   permission_handler: ^8.1.4+1
-  flutter_sound_lite:
+  flutter_sound_lite: ^8.1.9
   firebase_core: "^1.7.0"
   firebase_storage: "^10.0.5"
 
