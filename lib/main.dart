@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noteiteasy/record_page.dart';
+import 'package:firebase_core/firebase_core.dart'; //importing the firebase core plugin
 
 void main() {
   runApp(const MyApp());
