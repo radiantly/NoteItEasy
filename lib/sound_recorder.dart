@@ -1,15 +1,17 @@
 import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-final pathToSaveAudio = '/sdcard/audio_date.aac';
+import 'package:noteiteasy/globals.dart' as globals;
+import 'package:uuid/uuid.dart';
 
 class SoundRecorder {
+  final uuid = const Uuid();
+
   FlutterSoundRecorder? _audioRecorder;
   bool _isRecorderInitialised = false;
 
-  bool get isRecording => _audioRecorder!.isRecording;
+  bool get isRecording => _audioRecorder?.isRecording ?? false;
 
-  Future init() async {
+  Future<void> init() async {
     _audioRecorder = FlutterSoundRecorder();
 
     final status = await Permission.microphone.request();
@@ -29,23 +31,21 @@ class SoundRecorder {
     _isRecorderInitialised = false;
   }
 
-  Future _record() async {
+  Future<void> _record() async {
     if (!_isRecorderInitialised) return;
+    final recordingId = uuid.v4();
+    final pathToSaveAudioFile =
+        "${(await globals.storageDir).path}/$recordingId.aac";
 
-    await _audioRecorder!.startRecorder(toFile: pathToSaveAudio);
+    await _audioRecorder!.startRecorder(toFile: pathToSaveAudioFile);
   }
 
-  Future _stop() async {
+  Future<void> _stop() async {
     if (!_isRecorderInitialised) return;
 
     await _audioRecorder!.stopRecorder();
   }
 
-  Future toggleRecording() async {
-    if (_audioRecorder!.isStopped) {
-      await _record();
-    } else {
-      await _stop();
-    }
-  }
+  Future<void> toggleRecording() async =>
+      await (_audioRecorder!.isStopped ? _record() : _stop());
 }

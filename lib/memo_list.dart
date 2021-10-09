@@ -1,37 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:noteiteasy/globals.dart' as globals;
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
 import 'package:noteiteasy/sound_player.dart';
-import 'dart:async';
-
-import 'package:permission_handler/permission_handler.dart';
-
 
 class MemoList extends StatefulWidget {
-  MemoList({Key? key}) : super(key: key);
-
-
+  const MemoList({Key? key}) : super(key: key);
 
   @override
   _MemoListState createState() => _MemoListState();
 }
 
-
-
 class _MemoListState extends State<MemoList> {
-
   var _isPlaying = -1;
   final player = SoundPlayer();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     player.init();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     player.dispose();
 
     super.dispose();
@@ -47,7 +37,7 @@ class _MemoListState extends State<MemoList> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 7),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,23 +50,21 @@ class _MemoListState extends State<MemoList> {
                             fontSize: 24)),
                   ),
                   GestureDetector(
-                    child: SvgPicture.asset(
-                        (_isPlaying==index) ? "assets/Pause.svg" : "assets/Play.svg"),
-                    onTap: () async{
-
-                      if(_isPlaying==index){
+                    child: SvgPicture.asset((_isPlaying == index)
+                        ? "assets/Pause.svg"
+                        : "assets/Play.svg"),
+                    onTap: () async {
+                      if (_isPlaying == index) {
                         setState(() {
-                          _isPlaying=-1;
+                          _isPlaying = -1;
                         });
                         await player.startPlaying();
-                      }
-
-                      else{
-                        if(_isPlaying!=-1){
+                      } else {
+                        if (_isPlaying != -1) {
                           await player.stopPlaying();
                         }
                         setState(() {
-                          _isPlaying=index;
+                          _isPlaying = index;
                         });
                         await player.startPlaying();
                       }

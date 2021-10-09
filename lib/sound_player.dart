@@ -1,24 +1,36 @@
 import 'package:flutter_sound_lite/flutter_sound.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:noteiteasy/globals.dart' as globals;
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 final pathToReadAudio = 'audio_date.aac';
 
 class SoundPlayer {
   FlutterSoundPlayer? _audioPlayer;
 
-  Future startPlaying() async{
+  Future<void> startPlaying() async {
     await _audioPlayer!.startPlayer(
       fromURI: pathToReadAudio,
-      whenFinished:(){},
+      whenFinished: () {},
     );
   }
 
-  Future stopPlaying() async{
-    await _audioPlayer!.stopPlayer();
+  Future<void> startPlayingFile(String fileId, VoidCallback callback) async {
+    final audioFilePath = "${(await globals.storageDir).path}/$fileId.aac";
+
+    if (!await File(audioFilePath).exists()) {
+      // Download file from Cloud Storage
+    } else {
+      await _audioPlayer!.startPlayer(
+        fromURI: audioFilePath,
+        whenFinished: callback,
+      );
+    }
   }
 
+  Future<void> stopPlaying() async {
+    await _audioPlayer!.stopPlayer();
+  }
 
   void init() async {
     _audioPlayer = FlutterSoundPlayer();
@@ -26,9 +38,7 @@ class SoundPlayer {
     await _audioPlayer!.openAudioSession();
   }
 
-  void dispose() async{
+  void dispose() async {
     _audioPlayer!.closeAudioSession();
   }
-
-
 }
