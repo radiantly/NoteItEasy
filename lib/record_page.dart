@@ -39,7 +39,7 @@ class RecordPage extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
-                  Expanded(child: MemoList())
+                  const Expanded(child: MemoList())
                 ],
               ),
             ),
@@ -50,9 +50,9 @@ class RecordPage extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(bottom: 40.0),
                     child: RecordButton(),
                   ),
                 ],
