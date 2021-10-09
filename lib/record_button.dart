@@ -11,6 +11,7 @@ class RecordButton extends StatefulWidget {
 class _RecordButtonState extends State<RecordButton> {
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(onPressed: () {}, child: const Text("Record"));
+    return OutlinedButton(onPressed: () {
+    }, child: const Text("Record"));
   }
 }
