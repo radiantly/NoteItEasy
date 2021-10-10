@@ -1,6 +1,7 @@
 import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:noteiteasy/globals.dart' as globals;
+import 'package:noteiteasy/upload_recording.dart';
 import 'package:uuid/uuid.dart';
 
 class SoundRecorder {
@@ -8,8 +9,14 @@ class SoundRecorder {
 
   FlutterSoundRecorder? _audioRecorder;
   bool _isRecorderInitialised = false;
+  String currentRecordingId = "";
 
   bool get isRecording => _audioRecorder?.isRecording ?? false;
+
+  void generateNewRecordingId() => (currentRecordingId = uuid.v4());
+
+  Future<String> get currentRecordingPath async =>
+      "${(await globals.storageDir).path}/$currentRecordingId.aac";
 
   Future<void> init() async {
     _audioRecorder = FlutterSoundRecorder();
@@ -33,17 +40,16 @@ class SoundRecorder {
 
   Future<void> _record() async {
     if (!_isRecorderInitialised) return;
-    final recordingId = uuid.v4();
-    final pathToSaveAudioFile =
-        "${(await globals.storageDir).path}/$recordingId.aac";
+    generateNewRecordingId();
 
-    await _audioRecorder!.startRecorder(toFile: pathToSaveAudioFile);
+    await _audioRecorder!.startRecorder(toFile: await currentRecordingPath);
   }
 
   Future<void> _stop() async {
     if (!_isRecorderInitialised) return;
 
     await _audioRecorder!.stopRecorder();
+    await uploadFile(currentRecordingId, await currentRecordingPath);
   }
 
   Future<void> toggleRecording() async =>
