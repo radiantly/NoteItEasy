@@ -6,8 +6,33 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:noteiteasy/globals.dart' as globals;
+import 'package:noteiteasy/record_page.dart';
 import 'package:noteiteasy/splash_page.dart';
 import 'package:provider/provider.dart';
+
+class ReturnsLoginPage extends StatelessWidget {
+  const ReturnsLoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    body: StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context,snapshot){
+        if(snapshot.connectionState == ConnectionState.waiting)
+          return Center(child: CircularProgressIndicator(),);
+        else if(snapshot.hasError){
+          return Center(child: Text('Something went wrong :\\'),);
+        }
+        else if(snapshot.hasData){
+          return RecordPage();
+        }
+        else{
+        return LoginScreen();
+      }}
+    ),
+  );
+}
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

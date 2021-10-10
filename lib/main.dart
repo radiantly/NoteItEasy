@@ -34,7 +34,7 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             // Once initialization completes, show record page
             if (snapshot.connectionState == ConnectionState.done) {
-              return LoginScreen();
+              return ReturnsLoginPage();
             }
 
             return const SplashPage();
