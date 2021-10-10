@@ -30,8 +30,13 @@ class _MemoListState extends State<MemoList> {
 
   @override
   Widget build(BuildContext context) {
+    final memos = [
+      '"Pick up Zach from school in the afternoon"',
+      '"Finish washing dishes in the sink"',
+      '"Buy a birthday gift for Andrea"'
+    ];
     return ListView.builder(
-        itemCount: 5,
+        itemCount: 3,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -44,13 +49,12 @@ class _MemoListState extends State<MemoList> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Flexible(
-                        child: Text(
-                            '“Pick up Zach from school also this is some lorem ipsum text to make it larger”',
-                            style: TextStyle(
+                      Flexible(
+                        child: Text(memos[index],
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w300,
-                                fontSize: 20)),
+                                fontSize: 24)),
                       ),
                       GestureDetector(
                         child: SvgPicture.asset((_isPlaying == index)
@@ -75,16 +79,16 @@ class _MemoListState extends State<MemoList> {
                       )
                     ],
                   ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(child: FaIcon(FontAwesomeIcons.edit,color: Colors.white,),onTap: (){},),
-                        SizedBox(width: 10,),
-                        GestureDetector(child: FaIcon(FontAwesomeIcons.trash,color: Colors.white,),onTap: (){},),
-                      ],
-                    ),
-                  )
+                  // Container(
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       GestureDetector(child: FaIcon(FontAwesomeIcons.edit,color: Colors.white,),onTap: (){},),
+                  //       SizedBox(width: 10,),
+                  //       GestureDetector(child: FaIcon(FontAwesomeIcons.trash,color: Colors.white,),onTap: (){},),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
               decoration: BoxDecoration(
