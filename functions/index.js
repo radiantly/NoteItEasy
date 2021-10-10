@@ -13,7 +13,11 @@ const axios = require("axios");
 exports.generateTranscript = functions.storage
   .object()
   .onFinalize(async (object) => {
+    const objectPath = object.name.replace(/ /g, "%20").replace(/\//g, "%2F");
+
+    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/${object.bucket}/o/${objectPath}?alt=media`;
+
     await axios.post(DISCORD_WEBHOOOK_URL, {
-      content: `${object.name} has been uploaded in ${object.bucket}`,
+      content: `${object.name} has been uploaded in ${object.bucket}. Public download url is at ${downloadURL}`,
     });
   });
