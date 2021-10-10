@@ -52,7 +52,7 @@ const getUrl = `https://api.assemblyai.com/v2/transcript/${Transcript_id}`;
 
 // making a get request to the assemble ai api again to get the transcript
 var Transcript = "";
-await assemblyAi.get(getUrl).then((response) => {
+assemblyAi.get(getUrl).then(async (response) => {
   Transcript = response.body.text;
 
   //debugging
