@@ -1,3 +1,6 @@
 {
-  "DISCORD_WEBHOOOK_URL": "ENTER_WEBHOOK_URL"
+  "DISCORD_WEBHOOK_URL": "https://discord.com/api/webhooks/XXXXX",
+  "ASSEMBLYAI_API_TOKEN": "XXX",
+  "ASSEMBLYAI_TRANSCRIPT_API": "https://api.assemblyai.com/v2/transcript",
+  "WEBHOOK_CLOUD_FUNCTION_URL": "XXXX"
 }
