@@ -13,9 +13,7 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (cont)=> GoogleSignInProvider(),
+  Widget build(BuildContext context) => ChangeNotifierProvider(create: (context) => GoogleSignInProvider(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
@@ -87,7 +85,6 @@ class LoginScreen extends StatelessWidget {
             ),
           )),
     );
-  }
 }
 
 class GoogleSignInProvider extends ChangeNotifier{
