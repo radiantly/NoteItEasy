@@ -1,4 +1,3 @@
-const functions = require("firebase-functions");
 const {
   DISCORD_WEBHOOK_URL,
   ASSEMBLYAI_TRANSCRIPT_API,
@@ -7,18 +6,24 @@ const {
 } = require("./config.json");
 const axios = require("axios");
 
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp(functions.config().firebase);
+
 exports.generateTranscript = functions.storage
   .object()
   .onFinalize(async (object) => {
     const objectPath = object.name.replace(/ /g, "%20").replace(/\//g, "%2F");
 
+    const author = object.metadata.uid;
+
     const audio_url = `https://firebasestorage.googleapis.com/v0/b/${object.bucket}/o/${objectPath}?alt=media`;
 
     await axios.post(DISCORD_WEBHOOK_URL, {
-      content: `${object.name} has been uploaded in ${object.bucket}. Public download url is at ${audio_url}`,
+      content: `UID is: ${author}. ${object.name} has been uploaded in ${object.bucket}. Public download url is at ${audio_url}`,
     });
 
-    await axios.post(
+    const assemlyAIresponse = await axios.post(
       ASSEMBLYAI_TRANSCRIPT_API,
       {
         audio_url,
@@ -31,6 +36,14 @@ exports.generateTranscript = functions.storage
         },
       }
     );
+
+    const db = admin.firestore();
+    await db.collection("transcripts").add({
+      author,
+      assemblyID: assemlyAIresponse.data.id,
+      transcript: "Processing...",
+      audioID: "fake audio id",
+    });
   });
 
 exports.transcriptWebhook = functions.https.onRequest(
@@ -50,6 +63,17 @@ exports.transcriptWebhook = functions.https.onRequest(
     await axios.post(DISCORD_WEBHOOK_URL, {
       content: `Transcription complete! ${transcript_response.data.text}`,
     });
+    const db = admin.firestore();
+    const transcripts = db.collection("transcripts");
+    await (
+      await transcripts
+        .where("assemblyID", "==", transcript_response.data.id)
+        .get()
+    ).forEach((doc) =>
+      transcripts
+        .doc(doc.id)
+        .update({ transcript: transcript_response.data.text })
+    );
     response.send();
   }
 );
