@@ -32,18 +32,21 @@ dependencies:
   path_provider: "^2.0.2"
   share_plus:
   permission_handler: "^8.1.4+1"
+
+  # Sound recorder and player
   flutter_sound_lite: "^8.1.9"
-  firebase_core: "^1.7.0"
-  firebase_storage: "^10.0.5"
 
+  # Firebase related dependencies
+  firebase_core:
+  firebase_storage:
   firebase_auth:
+  cloud_firestore:
   google_sign_in:
-
-  font_awesome_flutter:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  font_awesome_flutter:
   google_fonts:
   flutter_svg:
   uuid:
