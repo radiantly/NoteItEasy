@@ -39,8 +39,8 @@ exports.generateTranscript = functions.storage
       .catch((err) => console.error(err));
   });
 
-const transcript_status = "";
-const Transcript_id = "";
+var transcript_status = "";
+var Transcript_id = "";
 
 //if we get a post request
 app.post("/", (request, response) => {
@@ -51,7 +51,7 @@ app.post("/", (request, response) => {
 const getUrl = `https://api.assemblyai.com/v2/transcript/${Transcript_id}`;
 
 // making a get request to the assemble ai api again to get the transcript
-const Transcript = "";
+var Transcript = "";
 await assemblyAi.get(getUrl).then((response) => {
   Transcript = response.body.text;
 
