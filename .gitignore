@@ -47,3 +47,6 @@ app.*.map.json
 
 # Do not commit Firebase's google-services.json
 google-services.json
+
+# Flutter generated screenshots
+flutter_*.png

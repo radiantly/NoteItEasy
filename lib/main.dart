@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noteiteasy/record_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:noteiteasy/signin.dart';
+import 'package:noteiteasy/login_page.dart';
 import 'package:noteiteasy/splash_page.dart'; //importing the firebase core plugin
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,9 +34,22 @@ class _AppState extends State<App> {
           builder: (context, snapshot) {
             // Once initialization completes, show record page
             if (snapshot.connectionState == ConnectionState.done) {
-              return LoginScreen();
-            }
+              return StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SplashPage();
+                    }
 
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong :thinking:');
+                    }
+
+                    if (snapshot.hasData) return const RecordPage();
+
+                    return const LoginPage();
+                  });
+            }
             return const SplashPage();
           }),
     );
