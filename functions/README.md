@@ -24,5 +24,6 @@ $ cp config.example.json config.json
 
 # Deploy cloud function
 $ cd ..
-$ firebase deploy --only functions
+$ firebase deploy --only functions                    # Deploy all functions
+$ firebase deploy --only functions:generateTranscript # Deploy certain function
 ```
