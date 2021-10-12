@@ -11,21 +11,21 @@ class RecordButton extends StatefulWidget {
 }
 
 class _RecordButtonState extends State<RecordButton> {
-  final recorder = SoundRecorder();
-  bool recorderProcessing = true;
+  final _recorder = SoundRecorder();
+  bool _recorderProcessing = true;
 
   @override
   void initState() {
     super.initState();
 
-    recorder.init().then((_) => setState(() {
-          recorderProcessing = false;
+    _recorder.init().then((_) => setState(() {
+          _recorderProcessing = false;
         }));
   }
 
   @override
   void dispose() {
-    recorder.dispose();
+    _recorder.dispose();
 
     super.dispose();
   }
@@ -44,19 +44,19 @@ class _RecordButtonState extends State<RecordButton> {
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             backgroundColor: MaterialStateProperty.all(Colors.white),
             foregroundColor: MaterialStateProperty.all(globals.gradientPink)),
-        onPressed: recorderProcessing
+        onPressed: _recorderProcessing
             ? null
             : () {
                 setState(() {
-                  recorderProcessing = true;
+                  _recorderProcessing = true;
                 });
-                recorder.toggleRecording().then((_) => setState(() {
-                      recorderProcessing = false;
+                _recorder.toggleRecording().then((_) => setState(() {
+                      _recorderProcessing = false;
                     }));
               },
-        child: Text(recorderProcessing
+        child: Text(_recorderProcessing
             ? 'Processing'
-            : recorder.isRecording
+            : _recorder.isRecording
                 ? 'Stop'
                 : 'Record'));
   }
